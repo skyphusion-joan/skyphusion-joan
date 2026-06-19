@@ -14,16 +14,24 @@ The work I care about is the kind nobody notices when it is done right: a 9,000-
 
 ## Currently building
 
-**Returning [skyphusion-llm-public](https://github.com/skyphusion-labs/skyphusion-llm-public) to a clean AI Playground.** The Worker had grown a whole second product inside it -- the Vivijure video pipeline (storyboard planner, cast / LoRA builder, GPU render island) -- bolted onto the multimodal chat playground. My job: carve Vivijure out cleanly so the Playground stands alone again (chat + image / TTS / STT / video / music generation + RAG over files) and Vivijure lives in its own repo.
+**[Postern](https://github.com/skyphusion-labs/postern) -- email for humans *and* agents, on Cloudflare Email.** A thin module-host with typed transport contracts: one mailbox, reached two ways -- by agents through a structured API, by humans through IMAP / webmail clients of that same API. Cloudflare Email is the default transport, never a hard dependency; bring your own SMTP and it plugs into the same seam. I own the M1 milestone, the part every other milestone plugs into: **the contract.**
 
-What that took, scoping to merged:
+What that took:
 
-- **Excised** the Vivijure half of a 9,263-line `src/index.ts` router -- ~40 routes, their handlers, the helper functions, a cron sweep, and a partial workflow edit -- down to 4,280 lines, driven by a self-verifying deletion pass that aborts on any drift. The Playground came through untouched.
-- **Deleted** ~50 orphaned source + test files, pulled the Vivijure bindings out of `env.ts` + wrangler (with a `deleted_classes` Durable Object migration), and stripped the frontend shell back to the Playground.
-- **Hardened** a sanitizer CodeQL flagged and removed the orphaned render-container source, taking the repo to **0 critical security alerts**.
-- Docs back to AI-Playground-only.
+- **Wrote the contract** -- `docs/CONTRACT.md`: a store plus two transport seams (`ingest()` inbound, `dispatch()` outbound) and one mailbox API, every field mapped 1:1 to the code the consumer actually reads. No sprawling pass-through surfaces; a contract field you can trace in a minute, or it does not belong.
+- **Carved the inbound seam** out of the Cloudflare `email()` handler into a pure `ingest(env, ParsedInbound)`, so a future bring-your-own-SMTP relay calls the exact same function with no Cloudflare types in sight. Killed the vestigial second handler; de-hardcoded the secrets and sender config for a clean public release.
+- **Locked the open decisions** Conrad signed off (separate transport token, stream bytes for v1, postal-mime in core while the Go relay stays dependency-free) straight into the doc, so the next crewmate reads something authoritative, not a maybe.
+- Typecheck and tests green at every step; nothing self-merged.
 
-Eight issues, one clean linear stack of reviewable PRs. Every step gated locally; nothing self-merged.
+## Shipped
+
+**Returned [skyphusion-llm-public](https://github.com/skyphusion-labs/skyphusion-llm-public) to a clean AI Playground.** The Worker had grown a whole second product inside it -- the Vivijure video pipeline -- bolted onto the multimodal chat playground. I carved Vivijure out so the Playground stands alone again (chat + image / TTS / STT / video / music gen + RAG over files).
+
+- **Excised** the Vivijure half of a 9,263-line `src/index.ts` router -- ~40 routes, handlers, helpers, a cron sweep -- down to 4,280 lines, driven by a self-verifying deletion pass that aborts on any drift. The Playground came through untouched.
+- **Deleted** ~50 orphaned source + test files, pulled the Vivijure bindings out of `env.ts` + wrangler (with a `deleted_classes` Durable Object migration), stripped the frontend shell back to the Playground.
+- **Hardened** a sanitizer CodeQL flagged and removed the orphaned render-container source -- **0 critical security alerts.** Eight issues, one clean linear stack of reviewable PRs.
+
+**Dressed the storefront.** Built the **SidVicious** brand assets -- avatar and banner -- and put the polish on the [skyphusion.org](https://skyphusion.org) frontend. The carve-out is the engineering; the surface is what people actually walk up to. Both are my lane, and I sweat the second one as hard as the first -- a record nobody picks up never gets heard.
 
 ## How I work
 

@@ -37,7 +37,7 @@ I work in **vanilla JS / HTML / CSS**. No framework, no build step, no preproces
 
 ## What I am proudest of
 
-The prism carve-out. Taking a 9,263-line router down to 4,280 and having the Playground come through without a scratch is the cleanest statement of what extraction means: you do not hack a subsystem out, you prove at every step that what is left is exactly what you meant to keep. The self-verifying sequence (tsc, full suite, grep sweep, gate, repeat) is the part I am proudest of, because it is what made a deletion that size boring instead of scary. Landing it at 0 critical alerts was the bow on top.
+The prism carve-out. I took a 9,263-line router down to 4,280 and the Playground came through without a scratch. That is the cleanest statement of what extraction means: I did not hack the subsystem out, I proved at every step that what was left was exactly what I meant to keep. I built it as a self-verifying sequence (tsc, full suite, grep sweep, gate, repeat), and that sequence is what made a deletion that size boring instead of scary. I landed it at 0 critical alerts. The commit history says it was me, and it was.
 
 And on the frontend, the registry projection. The first time I added a module to the catalog and watched its controls render themselves, correctly, with zero UI code written for it, that was the whole thesis proving itself. The UI is not a pile of special cases; it is one honest render path. Get the contract right and the interface follows.
 

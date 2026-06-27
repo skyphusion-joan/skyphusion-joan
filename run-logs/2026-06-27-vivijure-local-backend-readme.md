@@ -63,3 +63,15 @@ author skyphusion-joan). Amended once to swap <video> -> inline GIF.
   vivijure-local-backend PRIVACY.md / revises NOTICE, re-sync the README license line then.
 - Verified: render clean via gh api /markdown (mermaid + GIF render, license voice present); no dashes.
 - PR #3 amended + force-pushed. Pinged lead to review + merge the complete README.
+
+## Final: Ernst approved (A) + added acceptable-use pointer
+- Ernst confirmed he'd read the CURRENT README and chose (A): keep the reconciled License wording
+  (postern-#79 AGPL network-service sentence + "Skyphusion Labs operates nothing here, so we hold
+  none of your data" + NOTICE labor-of-love/not-for-SaaS lines). No further wording changes.
+- Per Ernst's request, added a one-line acceptable-use pointer under License:
+  "**Acceptable use:** no CSAM and no non-consensual imagery, ever -- see ACCEPTABLE-USE.md."
+  ACCEPTABLE-USE.md lands in Ernst's PR #4 (not on this branch), so the link resolves at the paired
+  #3+#4 merge (Mackaye merges them together). No dashes; amended + force-pushed PR #3.
+- NOTICE stays as-is (studio-matching); README owns the homelabber self-host framing. Future
+  License/self-host wording changes: heads-up Ernst to keep NOTICE in sync.
+- Session wrap: stood down clean. All work durable + pushed.

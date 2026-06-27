@@ -147,3 +147,30 @@ door is classified by manifest, not by name.
 - [x] Implement selector + CSS.
 - [x] Verify (node --check + node DOM-shim harness 26/26).
 - [ ] PR under joan identity (next).
+
+## Follow-up: retire hardcoded "own-gpu" name split -> classify by ui.locality (PR #381)
+
+#379 MERGED. Lead approved the ui.* fields (ui.locality/cost/blurb/limits, additive, no
+MODULE_API bump); Rollins setting them on the motion.backend manifests.
+
+Follow-up shipped: PR #381 (branch feat/planner-backend-locality -> main, author skyphusion-joan).
+- public/planner-registry.js: new motionLocality(mod) classifies a motion.backend module as
+  "local" vs "cloud" by manifest ui.locality ("local"|"cloud"|"datacenter"). ownGpuModule() and
+  cloudMotionModules() now use it instead of the literal m.name === "own-gpu" check.
+- SAFE ordering (per lead): motionLocality FALLS BACK to the legacy "own-gpu" name check when a
+  module does not declare ui.locality, so classification is byte-identical during the rollout
+  window. Comment marks the fallback removable once every motion.backend manifest carries
+  ui.locality (final cleanup, later follow-up).
+- planner.js NOT edited: its finalize/animate flow consumes the registry helpers (ownGpuModule /
+  cloudMotionModules via cloudModelOptions / gpuMotionLabel) and has NO own-gpu literal (verified
+  by grep), so it inherits the fix.
+
+Verification: node --check OK; no dashes; node harness 8/8 (rollout fallback byte-identical;
+ui.locality drives the split when present; manifest beats name; "datacenter" -> cloud). Headless
+Chrome still blocked in this isolated session; human does the visual pass.
+
+## Progress
+- [x] #379 backend selector (merged).
+- [x] #381 ui.locality classification with name fallback (open, ready for review).
+- [ ] LATER (flagged, not mine to schedule): remove the name-check fallback once all
+      motion.backend manifests carry ui.locality.

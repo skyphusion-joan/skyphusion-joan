@@ -174,3 +174,32 @@ Chrome still blocked in this isolated session; human does the visual pass.
 - [x] #381 ui.locality classification with name fallback (open, ready for review).
 - [ ] LATER (flagged, not mine to schedule): remove the name-check fallback once all
       motion.backend manifests carry ui.locality.
+
+## Refinement to #381: three-value taxonomy (local | byo | cloud) + finalize binding
+
+Lead decision: THREE localities -- local | byo | cloud. own-gpu = byo (your-own-RunPod-endpoint,
+BYO keys; NOT a homelab card), new homelab module = local. Rollins setting these on manifests.
+Amended #381 (force-pushed, single clean commit) -- now touches 3 files:
+- public/planner-registry.js: motionLocality returns local|byo|cloud (datacenter alias -> cloud;
+  fallback own-gpu -> byo). ownGpuModule() keys on "byo" SPECIFICALLY (gates the CONTRACT-2.27
+  finalize route = own-gpu), so a homelab "local" door can NEVER hijack finalize. cloudMotionModules
+  is now cloud-only (excludes byo + local).
+- public/planner-render-config.js: localityTag gains byo -> "Your own RunPod (BYO keys)" (kind byo),
+  distinct from local "Local (your GPU)" and cloud "Datacenter".
+- public/styles.css: .planner-backend-tag.is-byo chip (neutral ink + faint accent-2 edge).
+
+This resolves the label/route mismatch I flagged: the SELECTOR shows all three localities for
+display; the FINALIZE gate keys on byo (own-gpu) only.
+
+Verification: node --check all 3 assets; no dashes; registry harness 11/11 (fallback byte-identical;
+finalize stays own-gpu/byo even when a local door sorts first; cloud excludes byo+local; manifest
+beats name; datacenter->cloud; non-own-gpu byo is the finalize door); selector DOM-shim 30/30
+(incl. byo tag + .is-byo class distinct from local). Headless Chrome still blocked; human visual pass.
+
+Pairs with Rollins's #380 (manifests); lead merges #380 + #381 together once both carry byo.
+
+## Progress
+- [x] #379 backend selector (merged).
+- [x] #381 ui.locality classification -> refined to three-value (local|byo|cloud) + finalize bound
+      to byo (open, force-pushed, ready for review; merges with #380).
+- [ ] LATER (flagged): remove the name-check fallback once all motion.backend manifests carry ui.locality.

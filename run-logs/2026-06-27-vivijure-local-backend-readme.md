@@ -47,3 +47,19 @@ author skyphusion-joan). Amended once to swap <video> -> inline GIF.
   our latest dude" -> Ernst is ON the list.
 - Verified via gh api /markdown: mermaid fence renders as <pre lang="mermaid"> (GitHub renders it as
   a diagram), Ernst handle present, all crew handles present. No dashes. Amended PR #3 (force-push).
+
+## License/self-host wording reconciled to Ernst's canonical voice
+- No Ernst PR on vivijure-local-backend yet; his canonical self-hosted voice is established across the
+  org (postern #79 "self-hosted privacy note + NOTICE + README license line"). Mirrored it + this
+  repo's committed NOTICE so the public framing is one voice:
+  - License section now: "[AGPL-3.0-only](LICENSE). ... software you self-host; if you run it as a
+    network service for others, you must offer them the complete corresponding source under the same
+    license ... See NOTICE for the short version. ... Skyphusion Labs operates nothing here, so we
+    hold none of your data ... A labor of love, given freely ... not for sale, and not to be resold
+    as a SaaS." (Ernst's postern license-line structure + this repo's NOTICE distinctive lines.)
+  - Mermaid caption privacy line aligned to canonical: "Skyphusion Labs operates nothing here, and
+    holds none of your data." (was "skyphusion hosts nothing and sees nothing").
+- Did NOT link a PRIVACY.md (this repo has none yet; postern has one). If Ernst's #2 adds a
+  vivijure-local-backend PRIVACY.md / revises NOTICE, re-sync the README license line then.
+- Verified: render clean via gh api /markdown (mermaid + GIF render, license voice present); no dashes.
+- PR #3 amended + force-pushed. Pinged lead to review + merge the complete README.

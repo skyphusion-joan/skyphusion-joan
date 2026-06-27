@@ -33,3 +33,17 @@ design DNA (easy floor + learning ladder). Work in /home/joan/dev/vivijure-local
 ## Output
 PR #3: https://github.com/skyphusion-labs/vivijure-local-backend/pull/3 (branch docs/public-readme,
 author skyphusion-joan). Amended once to swap <video> -> inline GIF.
+
+## Additions (from Conrad, via lead): mermaid diagram + credits
+- Added a mermaid self-host architecture diagram (house ICD/mermaid standard), placed BELOW the
+  quickstart win (new "How it works (you self-host everything)" section before License). Shows: your
+  GPU box (docker compose up -> backend LTX i2v + bundled cloudflared quick tunnel) -> public
+  trycloudflare URL -> your own studio Worker "Local (your GPU)" door -> token-gated i2v request
+  back through the tunnel -> renders on your GPU -> clip to your R2 -> studio. Trust boundary drawn
+  via "YOUR ..." subgraph titles + caption: "every box is yours; skyphusion hosts nothing and sees
+  nothing."
+- Added a Credits block at the bottom (the band): Conrad ([@skyphusion], direction) + Mackaye,
+  Strummer, Rollins, Joan, and ERNST (legal) with skyphusion-* gh handles. Conrad flagged "include
+  our latest dude" -> Ernst is ON the list.
+- Verified via gh api /markdown: mermaid fence renders as <pre lang="mermaid"> (GitHub renders it as
+  a diagram), Ernst handle present, all crew handles present. No dashes. Amended PR #3 (force-push).
